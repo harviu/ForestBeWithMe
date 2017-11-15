@@ -52,7 +52,7 @@ public class GameMain extends AppCompatActivity implements GoogleApiClient.OnCon
     int x = 0, y = 0;
     static int MUTANT_NUM=100;
     static int ORI_SEED_NUM=10;
-    int seedsNumber=0;
+    int seedsNumber;
     GoogleApiClient mGoogleApiClient;
     Location mCurrentLocation, mLastLocation;
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 100;
@@ -197,7 +197,8 @@ public class GameMain extends AppCompatActivity implements GoogleApiClient.OnCon
         plantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(seedsNumber>0){
+                //种子数量无法判断，待修改
+                if(true){
                     if (mPixelmap.mPixels[x][y].getType()==SOIL) {
                         mPixelmap.mPixels[x][y].setType(TREE);
                         seedsNumber--;
