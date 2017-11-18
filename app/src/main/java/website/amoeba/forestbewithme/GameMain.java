@@ -263,6 +263,10 @@ public class GameMain extends AppCompatActivity implements GoogleApiClient.OnCon
         mapFileName = fileName;
         GridView map = (GridView) findViewById(R.id.map);
         imageAdapter = new ImageAdapter(this);
+        final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+
+
+
 
 
         //Plant
@@ -318,7 +322,7 @@ public class GameMain extends AppCompatActivity implements GoogleApiClient.OnCon
                 Random rNum = new Random();
                 x = rNum.nextInt(MAP_SIZE);
                 y = rNum.nextInt(MAP_SIZE);
-                while (mPixelmap.getPixels()[x][y].getType() != WATER) {
+                while (mPixelmap.getPixels()[x][y].getType() == WATER) {
                     x = rNum.nextInt(MAP_SIZE);
                     y = rNum.nextInt(MAP_SIZE);
                 }
@@ -331,7 +335,10 @@ public class GameMain extends AppCompatActivity implements GoogleApiClient.OnCon
             }
         }
 
-
+        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            Toast.makeText(this,"GPS is Disabled",Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
         //set Location Request Parameters
         mLocationRequest = LocationRequest.create();

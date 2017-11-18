@@ -51,7 +51,9 @@
             android:name=".GenerateMap"
             android:label="@string/title_activity_generate_map"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".GameMain"></activity>
+        <activity android:name=".GameMain"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
