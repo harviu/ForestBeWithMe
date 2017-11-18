@@ -7,6 +7,7 @@ import android.sax.StartElementListener;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,10 @@ public class GenerateMap extends AppCompatActivity implements MapNameInputDialog
     MapNameInputDialog nameDialog = new MapNameInputDialog();
     ArrayAdapter<String> mAdapter;
     static int MAP_SIZE = 100;
+    String[] allFileString;
+    ListView mapList;
+    ArrayList<String> mapFilesArray;
+
 
     @Override
     public void onNegative(MapNameInputDialog dialog) {
@@ -47,19 +52,17 @@ public class GenerateMap extends AppCompatActivity implements MapNameInputDialog
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mAdapter.add(fileName+".map");
-        startGame(fileName);
+        startGame(fileName+".map");
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_generate_map);
-        final ListView mapList = (ListView) findViewById(R.id.mapList);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        ArrayList<String> mapFilesArray = new ArrayList<>();
-        setSupportActionBar(toolbar);
-        String[] allFileString = getApplicationContext().fileList();
+    protected void onStart() {
+        Log.d("GenerateMap","Resume");
+        super.onStart();
+        // 更新数据
+        mapFilesArray = new ArrayList<>();
+        mapList = (ListView) findViewById(R.id.mapList);
+        allFileString = getApplicationContext().fileList();
         for (int i = 0; i < allFileString.length; i++) {
             if (allFileString[i].endsWith(".map")) {
                 mapFilesArray.add(allFileString[i]);
@@ -74,6 +77,15 @@ public class GenerateMap extends AppCompatActivity implements MapNameInputDialog
                 startGame(s);
             }
         });
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_generate_map);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +94,7 @@ public class GenerateMap extends AppCompatActivity implements MapNameInputDialog
             }
         });
     }
+
 
     public void startGame(String file) {
         Intent intent = new Intent(this, GameMain.class);

@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="46dp"
         android:gravity="center"
-        android:text="Choose a Mop or Create One"
+        android:text="Choose a Map or Create One"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"

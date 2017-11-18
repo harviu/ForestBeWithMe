@@ -35,8 +35,8 @@ public class Mutant {
         if(direction==N) y--;
         if(direction==S) y++;
     }
-    public static boolean validate(int t){
-        if(t==PixelMap.Pixel.TREE || t==PixelMap.Pixel.WATER){
+    public static boolean validate(PixelMap.Pixel t){
+        if(t.getType()==PixelMap.Pixel.TREE || t.getType()==PixelMap.Pixel.WATER){
             return false;
         }
         return true;
